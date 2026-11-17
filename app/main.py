@@ -315,10 +315,11 @@ def wavespeed_upload(client: httpx.Client, file_path: Path, key: str) -> str:
                                    "content_type": content_type}, headers={"Authorization": f"Bearer {key}"})
     ticket_resp.raise_for_status()
     ticket = ticket_resp.json()["data"]
-    with open(file_path, "rb") as payload:
-        upload_resp = client.request(ticket["upload"].get("method", "PUT"), ticket["upload"]["url"],
-                                     headers=ticket["upload"].get("headers", {}), content=payload)
-        upload_resp.raise_for_status()
+    # Buffered here because the local pilot caps image uploads at 12 MB;
+    # a fixed Content-Length is compatible with signed object-store PUTs.
+    upload_resp = client.request(ticket["upload"].get("method", "PUT"), ticket["upload"]["url"],
+                                 headers=ticket["upload"].get("headers", {}), content=file_path.read_bytes())
+    upload_resp.raise_for_status()
     return ticket["download_url"]
 
 

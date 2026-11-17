@@ -11,7 +11,6 @@ Prerequisites: Python **3.11–3.13**, network access (Three.js CDN + paid WaveS
 ```bash
 git clone https://github.com/MohamedLahmeri01/Ardoka-.git
 cd Ardoka-
-git checkout dev/ardoka-pilot-v0.1
 py -3 -m venv .venv
 source .venv/Scripts/activate
 python -m pip install -r requirements.txt
@@ -20,7 +19,7 @@ python run.py
 
 Open **http://127.0.0.1:8765**. The expected server log contains `Uvicorn running on http://127.0.0.1:8765`.
 
-**Existing clone:** `git fetch origin && git switch dev/ardoka-pilot-v0.1 && git pull --ff-only origin dev/ardoka-pilot-v0.1`.
+**Existing clone:** `git switch main && git pull --ff-only origin main`.
 
 **Enable paid AI calls:** create a WaveSpeedAI key at https://wavespeed.ai/accesskey, then in **Git Bash before starting `python run.py`**:
 

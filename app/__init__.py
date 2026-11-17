@@ -1,0 +1,1 @@
+"""Ardoka local pilot application."""
